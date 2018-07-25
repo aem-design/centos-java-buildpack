@@ -49,8 +49,12 @@ RUN \
     echo "==> Install chrome..." && \
     wget ${CHROME_DRIVER_URL} && unzip ${CHROME_DRIVER_FILE} && cp chromedriver /usr/bin && \
     wget ${CHROME_URL} && yum install -y Xvfb ${CHROME_FILE} && \
+    echo "==> Install yarn..." && \
+    curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo && \
+    yum install yarn && \
     echo "==> Install maven..." && \
     wget ${MAVEN_URL} && unzip ${MAVEN_FILE} && mv apache-maven-${MAVEN_VERSION} /apps/maven && rm -f ${MAVEN_FILE} && \
+    echo "export PATH=/apps/maven/bin:${PATH}">/etc/profile.d/maven.sh && \
     echo "export PATH=/apps/maven/bin:${PATH}">>.bashrc
 
 CMD ["bash"]
