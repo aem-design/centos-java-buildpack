@@ -32,7 +32,7 @@ RUN \
     yum update -y && yum install -y epel-release && yum install -y curl tar zip unzip ruby groovy ivy junit rsync python-setuptools autoconf gcc-c++ make gcc python-devel openssl-devel openssh-server vim git git-lfs wget bzip2 ca-certificates chrpath fontconfig freetype libfreetype.so.6 libfontconfig.so.1 libstdc++.so.6 ImageMagick ImageMagick-devel libcurl-devel libffi libffi-devel libtool-ltdl libtool-ltdl-devel && \
     echo "==> Install maven..." && \
     wget ${MAVEN_URL} && unzip ${MAVEN_FILE} && mv apache-maven-${MAVEN_VERSION} /apps/maven && rm -f ${MAVEN_FILE} && \
-    echo "export PATH=/apps/maven/bin:${PATH}">/etc/profile.d/maven.sh && \
+    touch .bashrc && echo "export PATH=/apps/maven/bin:${PATH}">>.bashrc && \
     echo "==> Install Java..." && \
     AUTO_JDKURLINFO=$(curl -ls ${JAVA_DOWNLOAD_URL} | grep -m1 jdk\-8u.*\-linux\-x64\.rpm ) && \
     AUTO_JDKURL=$(echo ${AUTO_JDKURLINFO} | sed -e 's/.*"filepath":"\(.*\)","MD5":.*/\1/g') && \
