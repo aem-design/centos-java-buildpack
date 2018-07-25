@@ -47,11 +47,8 @@ RUN \
     curl -o- ${NVM_URL} | bash && source ~/.bashrc && \
     nvm install $NODE_VERSION && npm install -g npm yarn && \
     echo "==> Install chrome..." && \
-    wget ${CHROME_DRIVER_URL} && unzip ${CHROME_DRIVER_FILE} && cp chromedriver /usr/bin && \
-    wget ${CHROME_URL} && yum install -y Xvfb ${CHROME_FILE} && \
-    echo "==> Install yarn..." && \
-    curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo && \
-    yum install yarn && \
+    wget ${CHROME_DRIVER_URL} && unzip ${CHROME_DRIVER_FILE} && mv chromedriver /usr/bin && rm -f ${CHROME_DRIVER_FILE} && \
+    wget ${CHROME_URL} && yum install -y Xvfb ${CHROME_FILE} && rm -f ${CHROME_FILE} && \
     echo "==> Install maven..." && \
     wget ${MAVEN_URL} && unzip ${MAVEN_FILE} && mv apache-maven-${MAVEN_VERSION} /apps/maven && rm -f ${MAVEN_FILE} && \
     echo "export PATH=/apps/maven/bin:${PATH}">/etc/profile.d/maven.sh && \
