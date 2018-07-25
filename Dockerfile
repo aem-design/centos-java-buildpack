@@ -30,9 +30,6 @@ RUN \
     mkdir -p /apps/ && \
     echo "==> Install packages..." && \
     yum update -y && yum install -y epel-release && yum install -y curl tar zip unzip ruby groovy ivy junit rsync python-setuptools autoconf gcc-c++ make gcc python-devel openssl-devel openssh-server vim git git-lfs wget bzip2 ca-certificates chrpath fontconfig freetype libfreetype.so.6 libfontconfig.so.1 libstdc++.so.6 ImageMagick ImageMagick-devel libcurl-devel libffi libffi-devel libtool-ltdl libtool-ltdl-devel && \
-    echo "==> Install maven..." && \
-    wget ${MAVEN_URL} && unzip ${MAVEN_FILE} && mv apache-maven-${MAVEN_VERSION} /apps/maven && rm -f ${MAVEN_FILE} && \
-    touch .bashrc && echo "export PATH=/apps/maven/bin:${PATH}">>.bashrc && \
     echo "==> Install Java..." && \
     AUTO_JDKURLINFO=$(curl -ls ${JAVA_DOWNLOAD_URL} | grep -m1 jdk\-8u.*\-linux\-x64\.rpm ) && \
     AUTO_JDKURL=$(echo ${AUTO_JDKURLINFO} | sed -e 's/.*"filepath":"\(.*\)","MD5":.*/\1/g') && \
@@ -51,6 +48,9 @@ RUN \
     nvm install $NODE_VERSION && npm install -g npm yarn && \
     echo "==> Install chrome..." && \
     wget ${CHROME_DRIVER_URL} && unzip ${CHROME_DRIVER_FILE} && cp chromedriver /usr/bin && \
-    wget ${CHROME_URL} && yum install -y Xvfb ${CHROME_FILE}
+    wget ${CHROME_URL} && yum install -y Xvfb ${CHROME_FILE} && \
+    echo "==> Install maven..." && \
+    wget ${MAVEN_URL} && unzip ${MAVEN_FILE} && mv apache-maven-${MAVEN_VERSION} /apps/maven && rm -f ${MAVEN_FILE} && \
+    && echo "export PATH=/apps/maven/bin:${PATH}">>.bashrc
 
 CMD ["bash"]
