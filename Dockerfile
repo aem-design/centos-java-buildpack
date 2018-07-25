@@ -51,6 +51,6 @@ RUN \
     wget ${CHROME_URL} && yum install -y Xvfb ${CHROME_FILE} && \
     echo "==> Install maven..." && \
     wget ${MAVEN_URL} && unzip ${MAVEN_FILE} && mv apache-maven-${MAVEN_VERSION} /apps/maven && rm -f ${MAVEN_FILE} && \
-    && echo "export PATH=/apps/maven/bin:${PATH}">>.bashrc
+    echo "export PATH=/apps/maven/bin:${PATH}">>.bashrc
 
 CMD ["bash"]
