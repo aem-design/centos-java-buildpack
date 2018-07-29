@@ -1,5 +1,7 @@
 ## CentOS 7 with Java Build Pack
 
+[![pipeline status](https://gitlab.com/aem.design/centos-java-buildpack/badges/master/pipeline.svg)](https://gitlab.com/aem.design/centos-java-buildpack/commits/master)
+
 This is docker image based on CentOS 7 with Java 8 and Build Tools
 
 ### Included Packages
