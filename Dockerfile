@@ -15,7 +15,7 @@ ARG CHROME_URL="https://dl.google.com/linux/direct/${CHROME_FILE}"
 ARG NODE_VERSION="10.2.1"
 ARG NVM_VERSION="v0.33.11"
 ARG NVM_URL="https://raw.githubusercontent.com/creationix/nvm/${NVM_VERSION}/install.sh"
-ARG MAVEN_VERSION="3.5.3"
+ARG MAVEN_VERSION="3.6.0"
 ARG MAVEN_FILE="apache-maven-${MAVEN_VERSION}-bin.zip"
 ARG MAVEN_URL="http://mirrors.sonic.net/apache/maven/maven-3/${MAVEN_VERSION}/binaries/${MAVEN_FILE}"
 
