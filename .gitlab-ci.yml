@@ -24,6 +24,9 @@ build:
 
 test:
   stage: test
+  image: docker:stable
+  services:
+    - docker:dind
   script:
     - docker run $CONTAINER_TEST_IMAGE mvn -version
     - docker run $CONTAINER_TEST_IMAGE yarn --version
