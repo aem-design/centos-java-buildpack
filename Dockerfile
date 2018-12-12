@@ -53,6 +53,8 @@ RUN \
     wget ${MAVEN_URL} && unzip ${MAVEN_FILE} && mv apache-maven-${MAVEN_VERSION} /apps/maven && rm -f ${MAVEN_FILE} && \
     echo "export PATH=/apps/maven/bin:${PATH}">/etc/profile.d/maven.sh && \
     echo "export PATH=/apps/maven/bin:${PATH}">>$HOME/.bashrc && \
-    echo "export PATH=/apps/maven/bin:${PATH}">>/etc/profile.d/sh.local
+    echo "export PATH=/apps/maven/bin:${PATH}">>/etc/profile.d/sh.local && \
+    ln -s /apps/maven/bin/mvn /usr/bin/mvn
+
 
 CMD ["/bin/bash"]
