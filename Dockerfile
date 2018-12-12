@@ -44,7 +44,7 @@ RUN \
     yum install -y nodejs && \
     echo "==> Install nvm..." && \
     export NVM_DIR=".nvm" && mkdir -p ${NVM_DIR} && touch .bashrc && \
-    curl -o- ${NVM_URL} | bash && source ~/.bashrc && \
+    curl -o- ${NVM_URL} | bash && source $HOME/.bashrc && \
     nvm install $NODE_VERSION && npm install -g npm yarn && \
     echo "==> Install chrome..." && \
     wget ${CHROME_DRIVER_URL} && unzip ${CHROME_DRIVER_FILE} && mv chromedriver /usr/bin && rm -f ${CHROME_DRIVER_FILE} && \
@@ -52,6 +52,9 @@ RUN \
     echo "==> Install maven..." && \
     wget ${MAVEN_URL} && unzip ${MAVEN_FILE} && mv apache-maven-${MAVEN_VERSION} /apps/maven && rm -f ${MAVEN_FILE} && \
     echo "export PATH=/apps/maven/bin:${PATH}">/etc/profile.d/maven.sh && \
-    echo "export PATH=/apps/maven/bin:${PATH}">>.bashrc
+    echo "export PATH=/apps/maven/bin:${PATH}">>$HOME/.bashrc && \
+    echo "source ~/.bashrc;">>$HOME/.bash_profile && \
+    echo "source $HOME/.bashrc;">>/etc/profile
 
-CMD ["bash"]
+
+CMD ["/bin/bash"]
