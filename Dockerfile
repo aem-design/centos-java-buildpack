@@ -54,7 +54,8 @@ RUN \
     echo "export PATH=/apps/maven/bin:${PATH}">/etc/profile.d/maven.sh && \
     echo "export PATH=/apps/maven/bin:${PATH}">>$HOME/.bashrc && \
     echo "source ~/.bashrc;">>$HOME/.bash_profile && \
-    echo "source $HOME/.bashrc;">>/etc/profile
+    echo "source $HOME/.bashrc;">>/etc/profile && \
+    echo "source $HOME/.bashrc;">>/etc/environment
 
 
 CMD ["/bin/bash"]
