@@ -8,12 +8,13 @@ This is docker image based on CentOS 7 with Java 8 and Build Tools
 
 Following is the list of packages included
 
-* npm                   - for building node sub projects
-* nvm                   - for managing node version
-* chrome                - for headless testing
-* bash tools            - for scripting
-* oracle-8-jdk          - Latest Oracle Java version 8 JDK
-* maven                 - for build process
+| Package | Version | Notes  |
+| ---  | ---    | --- |
+| nvm | v0.34.0 | node version manager - for building node sub projects|
+| node | 10.2.1 | node - for managing node version|
+| chrome driver | 77.0.3865.40  | for headless testing |
+| mvn | 3.6.1 | maven - for build process |
+| java | 1.8 | aemdesign/oracle-jdk:1.0-jdk8 - Latest Oracle Java version 8 JDK |
 
 ### Manual JDK Download Test
 
