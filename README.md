@@ -1,6 +1,13 @@
 ## CentOS 7 with Java Build Pack
 
-[![pipeline status](https://gitlab.com/aem.design/centos-java-buildpack/badges/master/pipeline.svg)](https://gitlab.com/aem.design/centos-java-buildpack/commits/master)
+[![build_status](https://travis-ci.org/aem-design/centos-java-buildpack.svg?branch=master)](https://travis-ci.org/aem-design/centos-java-buildpack) 
+[![github license](https://img.shields.io/github/license/aem-design/centos-java-buildpack)](https://github.com/aem-design/centos-java-buildpack) 
+[![github issues](https://img.shields.io/github/issues/aem-design/centos-java-buildpack)](https://github.com/aem-design/centos-java-buildpack) 
+[![github last commit](https://img.shields.io/github/last-commit/aem-design/centos-java-buildpack)](https://github.com/aem-design/centos-java-buildpack) 
+[![github repo size](https://img.shields.io/github/repo-size/aem-design/centos-java-buildpack)](https://github.com/aem-design/centos-java-buildpack) 
+[![docker stars](https://img.shields.io/docker/stars/aemdesign/centos-java-buildpack)](https://hub.docker.com/r/aemdesign/centos-java-buildpack) 
+[![docker pulls](https://img.shields.io/docker/pulls/aemdesign/centos-java-buildpack)](https://hub.docker.com/r/aemdesign/centos-java-buildpack) 
+[![github release](https://img.shields.io/github/release/aem-design/centos-java-buildpack)](https://github.com/aem-design/centos-java-buildpack)
 
 This is docker image based on CentOS 7 with Java 8 and Build Tools
 
