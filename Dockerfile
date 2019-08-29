@@ -4,6 +4,7 @@ MAINTAINER devops <devops@aem.design>
 
 LABEL   os="centos" \
         container.description="centos with java build pack" \
+        version="1.0.0" \
         imagename="centos-java-buildpack"
 
 #https://chromedriver.storage.googleapis.com/

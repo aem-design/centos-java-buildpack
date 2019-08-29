@@ -4,10 +4,10 @@ services:
   - 'docker'
 
 before_install:
-  - export IMAGE_NAME=$(grep imagename Dockerfile | sed -e 's/.*imagename="\(.*\)".*/\1/')
+  - export IMAGE_NAME=$(grep imagename= Dockerfile | sed -e 's/.*imagename="\(.*\)".*/\1/')
   - export TEST_COMMAND=$(grep TEST_COMMAND= Dockerfile | sed -e 's/.*TEST_COMMAND="\(.*\)".*/\1/')
   - export TEST_COMMAND_VERIFY=$(grep TEST_COMMAND_VERIFY= Dockerfile | sed -e 's/.*TEST_COMMAND_VERIFY="\(.*\)".*/\1/')
-  - export IMAGE_VERSION=$(grep version Dockerfile | sed -e 's/.*version="\(.*\)".*/\1/')
+  - export IMAGE_VERSION=$(grep version= Dockerfile | sed -e 's/.*version="\(.*\)".*/\1/')
   - export IMAGE="$ORGANISATION_NAME/$IMAGE_NAME"
   - echo IMAGE_NAME=$IMAGE_NAME
   - echo IMAGE_VERSION=$IMAGE_VERSION
