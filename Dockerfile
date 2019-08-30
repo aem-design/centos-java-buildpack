@@ -19,8 +19,8 @@ ARG NVM_URL="https://raw.githubusercontent.com/creationix/nvm/${NVM_VERSION}/ins
 ARG MAVEN_VERSION="3.6.1"
 ARG MAVEN_FILE="apache-maven-${MAVEN_VERSION}-bin.zip"
 ARG MAVEN_URL="http://mirrors.sonic.net/apache/maven/maven-3/${MAVEN_VERSION}/binaries/${MAVEN_FILE}"
-ARG TEST_COMMAND="node --version"
-ARG TEST_COMMAND_VERIFY="v${NODE_VERSION}"
+ARG TEST_COMMAND="bash -c 'source ~/.nvm/nvm.sh; node --version'"
+ARG TEST_COMMAND_VERIFY="v10.2.1"
 
 ENV HOME="/build"
 
