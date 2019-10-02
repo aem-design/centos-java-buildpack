@@ -21,7 +21,7 @@ Following is the list of packages included
 | node | 10.2.1 | node - for managing node version|
 | chrome driver | 77.0.3865.40  | for headless testing |
 | mvn | 3.6.1 | maven - for build process |
-| java | 1.8 | aemdesign/oracle-jdk:1.0-jdk8 - Latest Oracle Java version 8 JDK |
+| java | 1.8 | aemdesign/oracle-jdk:jdk8 - Latest Oracle Java version 8 JDK |
 
 ### Manual JDK Download Test
 
