@@ -30,11 +30,6 @@ RUN mkdir -p $HOME
 WORKDIR $HOME
 
 RUN \
-    echo "==> Install latest ruby..." && \
-    yum install -y centos-release-scl && \
-    yum-config-manager --enable rhel-server-rhscl-7-rpms && \
-    yum install -y rh-ruby23 && \
-    scl enable rh-ruby23 bash && \
     echo "==> Make dirs..." && \
     mkdir -p /apps/ && \
     echo "==> Install packages..." && \
@@ -52,6 +47,11 @@ RUN \
     echo "export PATH=/apps/maven/bin:${PATH}">>$HOME/.bashrc && \
     echo "export PATH=/apps/maven/bin:${PATH}">>/etc/profile.d/sh.local && \
     ln -s /apps/maven/bin/mvn /usr/bin/mvn && \
+    echo "==> Install latest ruby..." && \
+    yum install -y centos-release-scl && \
+    yum-config-manager --enable rhel-server-rhscl-7-rpms && \
+    yum install -y rh-ruby23 && \
+    scl enable rh-ruby23 bash && \
     echo "==> Set Oracle JDK as Alternative..." && \
     rm -rf /var/lib/alternatives/java && \
     rm -rf /var/lib/alternatives/jar && \
