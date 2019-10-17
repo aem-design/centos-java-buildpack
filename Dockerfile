@@ -30,6 +30,11 @@ RUN mkdir -p $HOME
 WORKDIR $HOME
 
 RUN \
+    echo "==> Install latest ruby..." && \
+    yum install -y centos-release-scl && \
+    yum-config-manager --enable rhel-server-rhscl-7-rpms && \
+    yum install -y rh-ruby23 && \
+    scl enable rh-ruby23 bash && \
     echo "==> Make dirs..." && \
     mkdir -p /apps/ && \
     echo "==> Install packages..." && \
@@ -46,7 +51,14 @@ RUN \
     echo "export PATH=/apps/maven/bin:${PATH}">/etc/profile.d/maven.sh && \
     echo "export PATH=/apps/maven/bin:${PATH}">>$HOME/.bashrc && \
     echo "export PATH=/apps/maven/bin:${PATH}">>/etc/profile.d/sh.local && \
-    ln -s /apps/maven/bin/mvn /usr/bin/mvn
+    ln -s /apps/maven/bin/mvn /usr/bin/mvn && \
+    echo "==> Set Oracle JDK as Alternative..." && \
+    alternatives --install "/usr/bin/java" "java" "/usr/java/default/bin/java" 2 && \
+    alternatives --install "/usr/bin/jar" "jar" "/usr/java/default/bin/jar" 2 && \
+    alternatives --install "/usr/bin/javac" "javac" "/usr/java/default/bin/javac" 2 && \
+    alternatives --set java "/usr/java/default/bin/java" && \
+    alternatives --set jar "/usr/java/default/bin/jar" && \
+    alternatives --set javac "/usr/java/default/bin/javac"
 
 
 CMD ["/bin/bash"]
