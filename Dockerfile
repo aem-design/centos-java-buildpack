@@ -22,18 +22,66 @@ ARG NVM_URL="https://raw.githubusercontent.com/creationix/nvm/${NVM_VERSION}/ins
 ARG MAVEN_VERSION="3.6.1"
 ARG MAVEN_FILE="apache-maven-${MAVEN_VERSION}-bin.zip"
 ARG MAVEN_URL="http://mirrors.sonic.net/apache/maven/maven-3/${MAVEN_VERSION}/binaries/${MAVEN_FILE}"
+ARG RVM_VERSION=stable
+ARG RVM_USER=rvm
 
+ENV RVM_USER=${RVM_USER}
+ENV RVM_VERSION=${RVM_VERSION}
 ENV HOME="/build"
 
 RUN mkdir -p $HOME
 
 WORKDIR $HOME
 
+ENV YUM_PACKAGES \
+    curl \
+    tar \
+    zip \
+    unzip \
+    ruby \
+    groovy \
+    ivy \
+    junit \
+    rsync \
+    python-setuptools \
+    autoconf \
+    gcc-c++ \
+    make \
+    gcc \
+    python-devel \
+    openssl-devel \
+    openssh-server \
+    vim \
+    git \
+    git-lfs \
+    wget \
+    bzip2 \
+    ca-certificates \
+    chrpath \
+    fontconfig \
+    freetype \
+    libfreetype.so.6 \
+    libfontconfig.so.1 \
+    libstdc++.so.6 \
+    ImageMagick \
+    ImageMagick-devel \
+    libcurl-devel \
+    libffi \
+    libffi-devel \
+    libtool-ltdl \
+    libtool-ltdl-devel \
+    lib16-devel \
+    libpng-devel \
+    pngquant \
+    sudo \
+    usermod \
+    gnupg2
+
 RUN \
     echo "==> Make dirs..." && \
     mkdir -p /apps/ && \
     echo "==> Install packages..." && \
-    yum update -y && yum install -y epel-release && yum install -y curl tar zip unzip ruby groovy ivy junit rsync python-setuptools autoconf gcc-c++ make gcc python-devel openssl-devel openssh-server vim git git-lfs wget bzip2 ca-certificates chrpath fontconfig freetype libfreetype.so.6 libfontconfig.so.1 libstdc++.so.6 ImageMagick ImageMagick-devel libcurl-devel libffi libffi-devel libtool-ltdl libtool-ltdl-devel lib16-devel libpng-devel pngquant && \
+    yum update -y && yum install -y epel-release && yum install -y ${YUM_PACKAGES} && \
     echo "==> Install nvm..." && \
     export NVM_DIR=".nvm" && mkdir -p ${NVM_DIR} && touch .bashrc && \
     curl -o- ${NVM_URL} | bash && source $HOME/.bashrc && \
@@ -47,15 +95,8 @@ RUN \
     echo "export PATH=/apps/maven/bin:${PATH}">>$HOME/.bashrc && \
     echo "export PATH=/apps/maven/bin:${PATH}">>/etc/profile.d/sh.local && \
     ln -s /apps/maven/bin/mvn /usr/bin/mvn && \
-    echo "==> Install RVM..." && \
-    curl -sSL https://rvm.io/mpapis.asc | gpg2 --import - && \
-    curl -sSL https://rvm.io/pkuczynski.asc | gpg2 --import - && \
-    curl -L get.rvm.io | bash -s stable && \
-    source /etc/profile.d/rvm.sh && \
-    rvm reload && \
-    rvm requirements run && \
-    rvm install 2.6 && \
-    rvm use 2.6 --default && \
+    echo "==> Disable requiretty..." && \
+    sed -i -e 's/^\(Defaults\s*requiretty\)/#--- \1/'  /etc/sudoers && \
     echo "==> Set Oracle JDK as Alternative..." && \
     rm -rf /var/lib/alternatives/java && \
     rm -rf /var/lib/alternatives/jar && \
@@ -67,5 +108,24 @@ RUN \
     alternatives --set jar "/usr/java/default/bin/jar" && \
     alternatives --set javac "/usr/java/default/bin/javac"
 
+RUN \
+    echo "==> Install RVM..." && \
+    curl -sSL https://rvm.io/mpapis.asc | gpg2 --import - && \
+    curl -sSL https://rvm.io/pkuczynski.asc | gpg2 --import - && \
+    curl -L get.rvm.io | bash -s $RVM_VERSION && \
+    echo "==> Source RVM..." && \
+    echo "export PATH=\$PATH:/usr/local/rvm/bin">>/build/.bashrc && \
+    export PATH=$PATH:/usr/local/rvm/bin && \
+    source /usr/local/rvm/scripts/rvm && \
+    echo "==> Reload RVM..." && \
+    touch /etc/rvmrc && \
+    echo "rvm_silence_path_mismatch_check_flag=1" >> /etc/rvmrc && \
+    touch /usr/local/rvm/gemsets/global.gems && \
+    echo "bundler" >> /usr/local/rvm/gemsets/global.gems && \
+    rvm reload && \
+    rvm requirements run && \
+    rvm install 2.6
 
-CMD ["/bin/bash"]
+CMD ["/bin/bash", "-l", "-c"]
+
+RUN useradd -m --no-log-init -r -g rvm ${RVM_USER}
