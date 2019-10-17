@@ -53,6 +53,9 @@ RUN \
     echo "export PATH=/apps/maven/bin:${PATH}">>/etc/profile.d/sh.local && \
     ln -s /apps/maven/bin/mvn /usr/bin/mvn && \
     echo "==> Set Oracle JDK as Alternative..." && \
+    rm -rf /var/lib/alternatives/java && \
+    rm -rf /var/lib/alternatives/jar && \
+    rm -rf /var/lib/alternatives/javac && \
     alternatives --install "/usr/bin/java" "java" "/usr/java/default/bin/java" 2 && \
     alternatives --install "/usr/bin/jar" "jar" "/usr/java/default/bin/jar" 2 && \
     alternatives --install "/usr/bin/javac" "javac" "/usr/java/default/bin/javac" 2 && \
