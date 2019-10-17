@@ -126,6 +126,4 @@ RUN \
     rvm requirements run && \
     rvm install 2.6
 
-CMD ["/bin/bash", "-l", "-c"]
-
 RUN useradd -m --no-log-init -r -g rvm ${RVM_USER}
