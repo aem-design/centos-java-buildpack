@@ -47,11 +47,15 @@ RUN \
     echo "export PATH=/apps/maven/bin:${PATH}">>$HOME/.bashrc && \
     echo "export PATH=/apps/maven/bin:${PATH}">>/etc/profile.d/sh.local && \
     ln -s /apps/maven/bin/mvn /usr/bin/mvn && \
-    echo "==> Install latest ruby..." && \
-    yum install -y centos-release-scl && \
-    yum-config-manager --enable rhel-server-rhscl-7-rpms && \
-    yum install -y rh-ruby23 && \
-    scl enable rh-ruby23 bash && \
+    echo "==> Install RVM..." && \
+    curl -sSL https://rvm.io/mpapis.asc | gpg2 --import - && \
+    curl -sSL https://rvm.io/pkuczynski.asc | gpg2 --import - && \
+    curl -L get.rvm.io | bash -s stable && \
+    source /etc/profile.d/rvm.sh && \
+    rvm reload && \
+    rvm requirements run && \
+    rvm install 2.6 && \
+    rvm use 2.6 --default && \
     echo "==> Set Oracle JDK as Alternative..." && \
     rm -rf /var/lib/alternatives/java && \
     rm -rf /var/lib/alternatives/jar && \
