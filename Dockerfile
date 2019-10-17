@@ -97,6 +97,7 @@ RUN \
     ln -s /apps/maven/bin/mvn /usr/bin/mvn && \
     echo "==> Disable requiretty..." && \
     sed -i -e 's/^\(Defaults\s*requiretty\)/#--- \1/'  /etc/sudoers && \
+    echo "ALL  ALL=(ALL) NOPASSWD: ALL">>/etc/sudoers && \
     echo "==> Set Oracle JDK as Alternative..." && \
     rm -rf /var/lib/alternatives/java && \
     rm -rf /var/lib/alternatives/jar && \
