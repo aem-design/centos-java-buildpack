@@ -47,6 +47,7 @@ jobs:
           docker run --rm -v $(pwd):/data/ aemdesign/dockerhub-description "$DOCKER_USERNAME" "$DOCKER_PASSWORD" "$IMAGE"
 
       - uses: meeDamian/github-release@1.0
+        if: github.ref == 'refs/heads/master'
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ env.GITHUB_TAG }}
