@@ -11,7 +11,7 @@ LABEL   os="centos" \
 
 RUN \
     echo "==> Download Showcase Maven Dependecies..." && \
-    wget https://github.com/aem-design/aemdesign-docker/releases/latest/download/package.zip -O aemdesign-aem-support-master.zip &&
+    wget https://github.com/aem-design/aemdesign-docker/releases/latest/download/package.zip -O aemdesign-aem-support-master.zip && \
     unzip aemdesign-aem-support-master.zip  && \
     cd aemdesign-aem-support-master && \
     mvn dependency:resolve -Dmaven.repo.local=/build/.m2/repository && \
