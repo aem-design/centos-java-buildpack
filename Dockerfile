@@ -11,14 +11,16 @@ LABEL   os="centos" \
 
 RUN \
     echo "==> Download Showcase Maven Dependecies..." && \
-    git clone --depth 1 --branch master --single-branch https://github.com/aem-design/aemdesign-aem-support && \
-    cd aemdesign-aem-support && \
-    mvn clean package -Dmaven.repo.local=/build/.m2/repository && \
-    cd .. && rm -rf aemdesign-aem-support && \
+    wget https://github.com/aem-design/aemdesign-aem-support/archive/master.zip &&
+    unzip aemdesign-aem-support-master.zip  && \
+    cd aemdesign-aem-support-master && \
+    mvn dependency:resolve -Dmaven.repo.local=/build/.m2/repository && \
+    cd .. && rm -rf aemdesign-aem-support-master && \
     echo "==> Download Core Maven Dependecies..." && \
-    git clone --depth 1 --branch master --single-branch https://github.com/aem-design/aemdesign-aem-core && \
-    cd aemdesign-aem-core && \
-    mvn clean package -Dmaven.repo.local=/build/.m2/repository && \
-    cd .. && rm -rf aemdesign-aem-core
+    wget https://github.com/aem-design/aemdesign-aem-core/archive/master.zip &&
+    unzip aemdesign-aem-core-master.zip && \
+    cd aemdesign-aem-core-master && \
+    mvn dependency:resolve -Dmaven.repo.local=/build/.m2/repository && \
+    cd .. && rm -rf aemdesign-aem-core-master
 
 
