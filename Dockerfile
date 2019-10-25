@@ -17,7 +17,7 @@ RUN \
     mvn dependency:resolve -Dmaven.repo.local=/build/.m2/repository && \
     cd .. && rm -rf aemdesign-aem-support-master && \
     echo "==> Download Core Maven Dependecies..." && \
-    wget https://github.com/aem-design/aemdesign-aem-core/releases/latest/download/package.zip -O aemdesign-aem-core-master.zip &&
+    wget https://github.com/aem-design/aemdesign-aem-core/releases/latest/download/package.zip -O aemdesign-aem-core-master.zip && \
     unzip aemdesign-aem-core-master.zip && \
     cd aemdesign-aem-core-master && \
     mvn dependency:resolve -Dmaven.repo.local=/build/.m2/repository && \
