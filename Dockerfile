@@ -25,7 +25,7 @@ RUN \
     wget https://codeload.github.com/aem-design/aemdesign-aem-core/zip/master -O aemdesign-aem-core-master.zip && \
     unzip -qq aemdesign-aem-core-master.zip && \
     cd aemdesign-aem-core-master && \
-    mvn dependency:resolve -pl "!aemdesign-aem-core-deploy" -Dmaven.repo.local=/build/.m2/repository && \
+    mvn package -Dmaven.repo.local=/build/.m2/repository && \
     ls -l /build/.m2/repository && \
     cd .. && rm -rf aemdesign-aem-core-master aemdesign-aem-core-master
 
