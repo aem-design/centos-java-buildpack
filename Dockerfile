@@ -16,8 +16,9 @@ RUN \
 #    curl https://api.github.com/repos/aem-design/aemdesign-aem-support/releases/latest | jq -r .zipball_url | cat | wget -O aemdesign-aem-support-master.zip -qi - && \
     wget https://codeload.github.com/aem-design/aemdesign-aem-support/zip/master -O aemdesign-aem-support-master.zip && \
     unzip -qq aemdesign-aem-support-master.zip && \
-    cd aemdesign-aem-support-master && ls -l && \
-    mvn clean  dependency:resolve -P all-modules -pl "!aemdesign-aem-support-deploy" -Dmaven.repo.local=/build/.m2/repository && \
+    cd aemdesign-aem-support-master && \
+    git init && git add . && git commit -m "test" && \
+    mvn package -P all-modules -pl "!aemdesign-aem-support-deploy" -Dmaven.repo.local=/build/.m2/repository && \
     ls -l /build/.m2/repository && \
     cd .. && rm -rf aemdesign-aem-support-master && \
     echo "==> Download Core Maven Dependecies..." && \
@@ -25,6 +26,7 @@ RUN \
     wget https://codeload.github.com/aem-design/aemdesign-aem-core/zip/master -O aemdesign-aem-core-master.zip && \
     unzip -qq aemdesign-aem-core-master.zip && \
     cd aemdesign-aem-core-master && \
+    git init && git add . && git commit -m "test" && \
     mvn package -Dmaven.repo.local=/build/.m2/repository && \
     ls -l /build/.m2/repository && \
     cd .. && rm -rf aemdesign-aem-core-master aemdesign-aem-core-master
