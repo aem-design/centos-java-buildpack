@@ -6,7 +6,7 @@ LABEL   os="centos" \
         container.description="centos with java build pack and maven dependencies" \
         version="aem" \
         imagename="centos-java-buildpack" \
-        test.command="bash -c 'mvn --version'" \
+        test.command="mvn --version" \
         test.command.verify="Apache Maven 3.6.1"
 
 RUN \
@@ -18,7 +18,7 @@ RUN \
     unzip -qq aemdesign-aem-support-develop.zip && \
     cd aemdesign-aem-support-develop && \
     git config --global user.email "devops@aem.design" && git config --global user.name "devops" && git init && git add . && git commit -m "test" && \
-    mvn package -P all-modules -pl "!aemdesign-aem-support-deploy" -Dmaven.repo.local=/build/.m2/repository && \
+    mvn package -DskipTests=true -P all-modules -pl "!aemdesign-aem-support-deploy" -Dmaven.repo.local=/build/.m2/repository && \
     ls -l /build/.m2/repository && \
     cd .. && rm -rf aemdesign-aem-support-develop && \
     echo "==> Download Core Maven Dependecies..." && \
@@ -27,7 +27,7 @@ RUN \
     unzip -qq aemdesign-aem-core-develop.zip && \
     cd aemdesign-aem-core-develop && \
     git config --global user.email "devops@aem.design" && git config --global user.name "devops" && git init && git add . && git commit -m "test" && \
-    mvn package -Dmaven.repo.local=/build/.m2/repository && \
+    mvn package -DskipTests=true -Dmaven.repo.local=/build/.m2/repository && \
     ls -l /build/.m2/repository && \
     cd .. && rm -rf aemdesign-aem-core-develop aemdesign-aem-core-develop
 
