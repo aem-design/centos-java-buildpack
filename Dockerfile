@@ -6,7 +6,7 @@ LABEL   os="centos" \
         container.description="centos with java build pack" \
         version="1.0.0" \
         imagename="centos-java-buildpack" \
-        test.command="bash -c 'source ~/.nvm/nvm.sh; node --version'" \
+        test.command="source ~/.nvm/nvm.sh; node --version" \
         test.command.verify="v10.2.1"
 
 
