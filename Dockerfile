@@ -14,7 +14,7 @@ RUN \
     wget -O jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 && chmod +x ./jq && cp jq /usr/bin && jq --version && \
     echo "==> Download Showcase Maven Dependecies..." && \
 #    curl https://api.github.com/repos/aem-design/aemdesign-aem-support/releases/latest | jq -r .zipball_url | cat | wget -O aemdesign-aem-support-master.zip -qi - && \
-    wget https://codeload.github.com/aem-design/aemdesign-aem-support/zip/master -O aemdesign-aem-support-master.zip && \
+    wget https://codeload.github.com/aem-design/aemdesign-aem-support/zip/develop -O aemdesign-aem-support-master.zip && \
     unzip -qq aemdesign-aem-support-master.zip && \
     cd aemdesign-aem-support-master && \
     git config --global user.email "devops@aem.design" && git config --global user.name "devops" && git init && git add . && git commit -m "test" && \
@@ -23,7 +23,7 @@ RUN \
     cd .. && rm -rf aemdesign-aem-support-master && \
     echo "==> Download Core Maven Dependecies..." && \
 #    curl https://api.github.com/repos/aem-design/aemdesign-aem-core/releases/latest | jq -r .zipball_url | cat | wget -O aemdesign-aem-core-master.zip -qi - && \
-    wget https://codeload.github.com/aem-design/aemdesign-aem-core/zip/master -O aemdesign-aem-core-master.zip && \
+    wget https://codeload.github.com/aem-design/aemdesign-aem-core/zip/develop -O aemdesign-aem-core-master.zip && \
     unzip -qq aemdesign-aem-core-master.zip && \
     cd aemdesign-aem-core-master && \
     git config --global user.email "devops@aem.design" && git config --global user.name "devops" && git init && git add . && git commit -m "test" && \
