@@ -32,8 +32,7 @@ jobs:
 
       - name: push image version
         run: |
-          docker tag $IMAGE:$IMAGE_VERSION $IMAGE:$GIT_BRANCH
-          docker push $IMAGE:$GIT_BRANCH
+          docker push $IMAGE:$IMAGE_VERSION
 
       - name: push latest image on master
         if: github.ref == 'refs/heads/master'
