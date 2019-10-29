@@ -13,7 +13,6 @@ RUN \
     echo "==> Install Jq..." && \
     wget -O jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 && chmod +x ./jq && cp jq /usr/bin && jq --version && \
     echo "==> Download Showcase Maven Dependecies..." && \
-#    curl https://api.github.com/repos/aem-design/aemdesign-aem-support/releases/latest | jq -r .zipball_url | cat | wget -O aemdesign-aem-support-develop.zip -qi - && \
     wget https://codeload.github.com/aem-design/aemdesign-aem-support/zip/develop -O aemdesign-aem-support-develop.zip && \
     unzip -qq aemdesign-aem-support-develop.zip && \
     cd aemdesign-aem-support-develop && \
@@ -22,7 +21,6 @@ RUN \
     ls -l /build/.m2/repository && \
     cd .. && rm -rf aemdesign-aem-support-develop && \
     echo "==> Download Core Maven Dependecies..." && \
-#    curl https://api.github.com/repos/aem-design/aemdesign-aem-core/releases/latest | jq -r .zipball_url | cat | wget -O aemdesign-aem-core-develop.zip -qi - && \
     wget https://codeload.github.com/aem-design/aemdesign-aem-core/zip/develop -O aemdesign-aem-core-develop.zip && \
     unzip -qq aemdesign-aem-core-develop.zip && \
     cd aemdesign-aem-core-develop && \
