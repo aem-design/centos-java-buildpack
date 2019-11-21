@@ -109,6 +109,8 @@ RUN \
     alternatives --set jar "/usr/java/default/bin/jar" && \
     alternatives --set javac "/usr/java/default/bin/javac"
 
+RUN gem install sass
+
 RUN \
     echo "==> Install RVM..." && \
     curl -sSL https://rvm.io/mpapis.asc | gpg2 --import - && \
