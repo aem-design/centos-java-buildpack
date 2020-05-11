@@ -17,8 +17,7 @@ ARG CHROME_DRIVER_URL="https://chromedriver.storage.googleapis.com/${CHROME_DRIV
 ARG CHROME_FILE="google-chrome-stable_current_x86_64.rpm"
 ARG CHROME_URL="https://dl.google.com/linux/direct/${CHROME_FILE}"
 ARG NODE_VERSION="10.2.1"
-ARG NVM_VERSION="v0.34.0"
-ARG NVM_URL="https://raw.githubusercontent.com/creationix/nvm/${NVM_VERSION}/install.sh"
+ARG NVM_URL="https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh"
 ARG MAVEN_VERSION="3.6.1"
 ARG MAVEN_FILE="apache-maven-${MAVEN_VERSION}-bin.zip"
 ARG MAVEN_URL="http://mirrors.sonic.net/apache/maven/maven-3/${MAVEN_VERSION}/binaries/${MAVEN_FILE}"
@@ -83,9 +82,11 @@ RUN \
     echo "==> Install packages..." && \
     yum update -y && yum install -y epel-release && yum install -y ${YUM_PACKAGES} && \
     echo "==> Install nvm..." && \
-    export NVM_DIR=".nvm" && mkdir -p ${NVM_DIR} && touch .bashrc && \
+    export NVM_DIR="/build/.nvm" && mkdir -p ${NVM_DIR} && touch .bashrc && \
     curl -o- ${NVM_URL} | bash && source $HOME/.bashrc && \
-    nvm install $NODE_VERSION && nvm use --delete-prefix ${NODE_VERSION} && npm install -g npm yarn && \
+    nvm install $NODE_VERSION && nvm use --delete-prefix ${NODE_VERSION} && \
+    echo "==> Install npm packages..." && \
+    npm install -g npm yarn && \
     echo "==> Install chrome..." && \
     wget ${CHROME_DRIVER_URL} && unzip ${CHROME_DRIVER_FILE} && mv chromedriver /usr/bin && rm -f ${CHROME_DRIVER_FILE} && \
     wget ${CHROME_URL} && yum install -y Xvfb ${CHROME_FILE} && rm -f ${CHROME_FILE} && \
