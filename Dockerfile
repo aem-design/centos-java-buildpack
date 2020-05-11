@@ -17,7 +17,7 @@ RUN \
     unzip -qq aemdesign-aem-support-develop.zip && \
     cd aemdesign-aem-support-develop && \
     git config --global user.email "devops@aem.design" && git config --global user.name "devops" && git init && git add . && git commit -m "test" && \
-    mvn package -DskipTests=true -P all-modules -pl "!aemdesign-aem-support-deploy" -Dmaven.repo.local=/build/.m2/repository && \
+    mvn clean -DskipTests=true -P all-modules -pl "!aemdesign-aem-support-deploy" -Dmaven.repo.local=/build/.m2/repository && \
     ls -l /build/.m2/repository && \
     cd .. && rm -rf aemdesign-aem-support-develop && \
     echo "==> Download Core Maven Dependecies..." && \
@@ -25,7 +25,7 @@ RUN \
     unzip -qq aemdesign-aem-core-develop.zip && \
     cd aemdesign-aem-core-develop && \
     git config --global user.email "devops@aem.design" && git config --global user.name "devops" && git init && git add . && git commit -m "test" && \
-    mvn package -DskipTests=true -Dmaven.repo.local=/build/.m2/repository && \
+    mvn clean -DskipTests=true -Dmaven.repo.local=/build/.m2/repository && \
     ls -l /build/.m2/repository && \
     cd .. && rm -rf aemdesign-aem-core-develop aemdesign-aem-core-develop
 
