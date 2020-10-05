@@ -19,32 +19,28 @@ jobs:
         run: |
           source <(curl -sL https://github.com/aem-design/aemdesign-docker/releases/latest/download/github_get_config.sh)
           source <(curl -sL https://github.com/aem-design/aemdesign-docker/releases/latest/download/github_get_version.sh)
-
       - name: build and test docker image
         run: |
           docker build --pull -t $IMAGE:$IMAGE_VERSION .
           source <(curl -sL https://github.com/aem-design/aemdesign-docker/releases/latest/download/github_container_verify.sh)
-          (cd test && ./run_tests.sh "$IMAGE:$IMAGE_VERSION")
+          (cd test && bash ./run_tests.sh "$IMAGE:$IMAGE_VERSION")
           docker images
-          
+
       - name: login to docker registry
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login ${DOCKER_REGISTRY} -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
       - name: push image version
         run: |
           docker push $IMAGE:$IMAGE_VERSION
-
       - name: push latest image on master
         if: github.ref == 'refs/heads/master'
         run: |
           docker tag $IMAGE:$IMAGE_VERSION $IMAGE:latest
           docker push $IMAGE:latest
-
       - name: update registry description with readme on master
         if: github.ref == 'refs/heads/master'
         run: |
           docker run --rm -v $(pwd):/data/ aemdesign/dockerhub-description "$DOCKER_USERNAME" "$DOCKER_PASSWORD" "$IMAGE"
-
       - uses: meeDamian/github-release@1.0
         if: github.ref == 'refs/heads/master'
         with:
