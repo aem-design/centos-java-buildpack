@@ -75,7 +75,8 @@ ENV YUM_PACKAGES \
     pngquant \
     sudo \
     usermod \
-    gnupg2
+    gnupg2 \
+    libwebp-tools
 
 RUN \
     echo "==> Make dirs..." && \
