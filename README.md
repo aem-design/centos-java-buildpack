@@ -1,6 +1,6 @@
 ## CentOS 7 with Java Build Pack
 
-[![build_status](https://github.com/aem-design/docker-centos-java-buildpack/workflows/ci/badge.svg)](https://github.com/aem-design/docker-centos-java-buildpack/actions?workflow=ci)
+[![build_status](https://github.com/aem-design/docker-centos-java-buildpack/workflows/build/badge.svg)](https://github.com/aem-design/docker-centos-java-buildpack/actions?workflow=build)
 [![github license](https://img.shields.io/github/license/aem-design/centos-java-buildpack)](https://github.com/aem-design/centos-java-buildpack) 
 [![github issues](https://img.shields.io/github/issues/aem-design/centos-java-buildpack)](https://github.com/aem-design/centos-java-buildpack) 
 [![github last commit](https://img.shields.io/github/last-commit/aem-design/centos-java-buildpack)](https://github.com/aem-design/centos-java-buildpack) 
