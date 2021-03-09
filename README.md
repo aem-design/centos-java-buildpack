@@ -19,7 +19,7 @@ Following is the list of packages included
 | ------------- | ------------ | -------------------------------------------------------------- |
 | nvm           | v0.37.2      | node version manager - for building node sub projects          |
 | node          | 12.19.0      | node - for managing node version                               |
-| chrome driver | 77.0.3865.40 | for headless testing                                           |
+| chrome driver | 88.0.4324.96 | for headless testing                                           |
 | mvn           | 3.6.1        | maven - for build process                                      |
 | java          | 11           | aemdesign/oracle-jdk:jdk11 - Latest Oracle Java version 11 JDK |
 
