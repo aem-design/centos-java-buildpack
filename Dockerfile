@@ -71,8 +71,8 @@ ENV REQUIRED_PACKAGES \
     pngquant \
     sudo \
     gnupg2 \
+    libwebp \
     yarn
-    # libwebp-tools
 
 RUN \
     echo "==> Make dirs..." && \
