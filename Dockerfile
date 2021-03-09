@@ -1,28 +1,27 @@
-FROM       aemdesign/oracle-jdk:jdk8
-
-MAINTAINER devops <devops@aem.design>
+FROM    aemdesign/oracle-jdk:jdk11
 
 LABEL   os="centos" \
         container.description="centos with java build pack" \
         version="1.0.0" \
         imagename="centos-java-buildpack" \
+        maintainer="devops@aem.design" \
         test.command="source ~/.nvm/nvm.sh; node --version" \
         test.command.verify="v10.2.1"
 
-
 #https://chromedriver.storage.googleapis.com/
-ARG CHROME_DRIVER_VERSION="77.0.3865.40"
+ARG CHROME_DRIVER_VERSION="88.0.4324.96"
 ARG CHROME_DRIVER_FILE="chromedriver_linux64.zip"
 ARG CHROME_DRIVER_URL="https://chromedriver.storage.googleapis.com/${CHROME_DRIVER_VERSION}/${CHROME_DRIVER_FILE}"
 ARG CHROME_FILE="google-chrome-stable_current_x86_64.rpm"
 ARG CHROME_URL="https://dl.google.com/linux/direct/${CHROME_FILE}"
-ARG NODE_VERSION="10.2.1"
+ARG NODE_VERSION="12.19.0"
 ARG NVM_URL="https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh"
 ARG MAVEN_VERSION="3.6.3"
 ARG MAVEN_FILE="apache-maven-${MAVEN_VERSION}-bin.zip"
 ARG MAVEN_URL="http://mirrors.sonic.net/apache/maven/maven-3/${MAVEN_VERSION}/binaries/${MAVEN_FILE}"
 ARG RVM_VERSION=stable
 ARG RVM_USER=rvm
+ARG GROOVY_VERSION="3.0.7"
 
 ENV RVM_USER=${RVM_USER}
 ENV RVM_VERSION=${RVM_VERSION}
@@ -32,22 +31,21 @@ RUN mkdir -p $HOME
 
 WORKDIR $HOME
 
-ENV YUM_PACKAGES \
+ENV REQUIRED_PACKAGES \
     curl \
     tar \
     zip \
     unzip \
     ruby \
-    groovy \
-    ivy \
+    apache-ivy \
     junit \
     rsync \
-    python-setuptools \
+    python2-setuptools \
     autoconf \
     gcc-c++ \
     make \
     gcc \
-    python-devel \
+    python2-devel \
     openssl-devel \
     openssh-server \
     vim \
@@ -69,37 +67,76 @@ ENV YUM_PACKAGES \
     libffi-devel \
     libtool-ltdl \
     libtool-ltdl-devel \
-    lib16-devel \
     libpng-devel \
     pngquant \
     sudo \
-    usermod \
     gnupg2 \
-    libwebp-tools
+    yarn
+    # libwebp-tools
 
 RUN \
     echo "==> Make dirs..." && \
-    mkdir -p /apps/ && \
+    mkdir -p /apps/
+
+RUN \
+    echo "==> Setup packages..." && \
+    dnf -y install dnf-plugins-core && \
+    dnf config-manager --set-enabled PowerTools && \
+    dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm && \
+    dnf groupinfo "Development Tools" && \
+    curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo
+
+RUN dnf check-update -y || { rc=$?; [ "$rc" -eq 100 ] && exit 0; exit "$rc"; }
+
+RUN \
+    echo "==> Enable Java packages & tools..." && \
+    dnf module enable -y javapackages-tools
+
+RUN \
     echo "==> Install packages..." && \
-    yum update -y && yum install -y epel-release && yum install -y ${YUM_PACKAGES} && \
+    dnf install -y epel-release && \
+    dnf group install -y "Development Tools" && \
+    dnf install -y ${REQUIRED_PACKAGES}
+
+RUN \
+    echo "==> Install SDKMAN..." && \
+    export SDKMAN_DIR=$HOME
+
+RUN curl -s https://get.sdkman.io | bash
+
+RUN \
+    source "$HOME/.sdkman/bin/sdkman-init.sh" && \
+    sdk version && \
+    sdk install groovy $GROOVY_VERSION
+
+RUN \
     echo "==> Install nvm..." && \
-    export NVM_DIR="/build/.nvm" && mkdir -p ${NVM_DIR} && touch .bashrc && \
+    export NVM_DIR="/build/.nvm" && \
+    mkdir -p ${NVM_DIR} && touch .bashrc && \
     curl -o- ${NVM_URL} | bash && source $HOME/.bashrc && \
     nvm install $NODE_VERSION && nvm use --delete-prefix ${NODE_VERSION} && \
     echo "==> Install npm packages..." && \
-    npm install -g npm yarn && \
+    npm install -g npm
+
+RUN \
     echo "==> Install chrome..." && \
     wget ${CHROME_DRIVER_URL} && unzip ${CHROME_DRIVER_FILE} && mv chromedriver /usr/bin && rm -f ${CHROME_DRIVER_FILE} && \
-    wget ${CHROME_URL} && yum install -y Xvfb ${CHROME_FILE} && rm -f ${CHROME_FILE} && \
+    wget ${CHROME_URL} && yum install -y Xvfb ${CHROME_FILE} && rm -f ${CHROME_FILE}
+
+RUN \
     echo "==> Install maven..." && \
     wget ${MAVEN_URL} && unzip ${MAVEN_FILE} && mv apache-maven-${MAVEN_VERSION} /apps/maven && rm -f ${MAVEN_FILE} && \
     echo "export PATH=/apps/maven/bin:${PATH}">/etc/profile.d/maven.sh && \
     echo "export PATH=/apps/maven/bin:${PATH}">>$HOME/.bashrc && \
     echo "export PATH=/apps/maven/bin:${PATH}">>/etc/profile.d/sh.local && \
-    ln -s /apps/maven/bin/mvn /usr/bin/mvn && \
+    ln -s /apps/maven/bin/mvn /usr/bin/mvn
+
+RUN \
     echo "==> Disable requiretty..." && \
     sed -i -e 's/^\(Defaults\s*requiretty\)/#--- \1/'  /etc/sudoers && \
-    echo "ALL  ALL=(ALL) NOPASSWD: ALL">>/etc/sudoers && \
+    echo "ALL  ALL=(ALL) NOPASSWD: ALL">>/etc/sudoers
+
+RUN \
     echo "==> Set Oracle JDK as Alternative..." && \
     rm -rf /var/lib/alternatives/java && \
     rm -rf /var/lib/alternatives/jar && \
