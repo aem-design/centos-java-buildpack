@@ -23,7 +23,7 @@ jobs:
         run: |
           docker build --pull -t $IMAGE:$GIT_BRANCH .
           source <(curl -sL https://github.com/aem-design/aemdesign-docker/releases/latest/download/github_container_verify.sh)
-          (cd test && bash ./run_tests.sh "$IMAGE:$IMAGE_VERSION")
+          (cd test && bash ./run_tests.sh "$IMAGE:$GIT_BRANCH")
           docker images
       - name: login to docker registry
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login ${DOCKER_REGISTRY} -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
