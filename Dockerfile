@@ -6,7 +6,7 @@ LABEL   os="centos" \
         imagename="centos-java-buildpack" \
         maintainer="devops@aem.design" \
         test.command="source ~/.nvm/nvm.sh; node --version" \
-        test.command.verify="v10.2.1"
+        test.command.verify="v12.19.0"
 
 #https://chromedriver.storage.googleapis.com/
 ARG CHROME_DRIVER_VERSION="88.0.4324.96"
