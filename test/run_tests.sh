@@ -112,8 +112,8 @@ test_usage_java() {
 
 test_usage_node() {
   printLine "Testing node"
-  CHECK="$(cat ../Dockerfile | grep -m1 NODE_VERSION | sed -e 's/.*NODE_VERSION="\(.*\)"\s.*/\1/g')"
-  COMMAND="$(cat ../Dockerfile | grep -m1 test.command | sed -e 's/.*test.command="\(.*\)"\s.*/\1/g')"
+  CHECK="$(cat ../Dockerfile | grep -m1 NODE_VERSION | sed -e 's/.*NODE_VERSION="\(.*\)".*/\1/g')"
+  COMMAND="$(cat ../Dockerfile | grep -m1 test.command | sed -e 's/.*test.command="\(.*\)".*/\1/g')"
 
   printLine "Starting Container"
 
@@ -130,7 +130,7 @@ test_usage_node() {
 
 test_usage_maven() {
   printLine "Testing maven"
-  CHECK="$(cat ../Dockerfile | grep -m1 MAVEN_VERSION | sed -e 's/.*MAVEN_VERSION="\(.*\)"\s.*/\1/g')"
+  CHECK="$(cat ../Dockerfile | grep -m1 MAVEN_VERSION | sed -e 's/.*MAVEN_VERSION="\(.*\)".*/\1/g')"
 
   printLine "Starting Container"
 
