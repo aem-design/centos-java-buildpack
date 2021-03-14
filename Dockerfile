@@ -80,9 +80,11 @@ RUN \
 
 RUN \
     echo "==> Setup packages..." && \
-    dnf -y install dnf-plugins-core && \
-    dnf config-manager --set-enabled PowerTools && \
-    dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm && \
+    dnf update -y && \
+    dnf repolist && \
+    dnf --enablerepo=extras install -y epel-release dnf-plugins-core && \
+    dnf config-manager --set-enabled powertools && \
+    dnf repolist && \
     dnf groupinfo "Development Tools" && \
     curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo
 
@@ -96,7 +98,7 @@ RUN \
     echo "==> Install packages..." && \
     dnf install -y epel-release && \
     dnf group install -y "Development Tools" && \
-    dnf install -y ${REQUIRED_PACKAGES}
+    dnf --enablerepo=powertools install -y ${REQUIRED_PACKAGES}
 
 RUN \
     echo "==> Install SDKMAN..." && \

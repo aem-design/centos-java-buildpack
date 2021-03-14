@@ -148,3 +148,5 @@ test_usage_maven() {
 test_usage_java
 
 test_usage_node
+
+test_usage_maven
