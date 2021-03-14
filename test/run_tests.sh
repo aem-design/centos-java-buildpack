@@ -93,13 +93,13 @@ printDebug() {
     debug "$(printf '*%.0s' {1..100})" "error"
 }
 
-test_docker_run_usage() {
-  printLine "Testing 'docker run' usage"
-  CHECK="Apache Maven"
+test_usage_java() {
+  printLine "Testing java"
+  CHECK="11."
 
   printLine "Starting Container"
 
-  OUTPUT=$(docker run --rm ${IMAGE_NAME} mvn --version)
+  OUTPUT=$(docker run --rm ${IMAGE_NAME} java --version)
 
   if [[ "$OUTPUT" != *"$CHECK"* ]]; then
       printResult "error"
@@ -110,5 +110,41 @@ test_docker_run_usage() {
   fi
 }
 
+test_usage_node() {
+  printLine "Testing node"
+  CHECK="$(cat ../Dockerfile | grep -m1 NODE_VERSION | sed -e 's/.*NODE_VERSION="\(.*\)"\s.*/\1/g')"
+  COMMAND="$(cat ../Dockerfile | grep -m1 test.command | sed -e 's/.*test.command="\(.*\)"\s.*/\1/g')"
 
-test_docker_run_usage
+  printLine "Starting Container"
+
+  OUTPUT=$(docker run --rm ${IMAGE_NAME} bash --login -c "${COMMAND}")
+
+  if [[ "$OUTPUT" != *"$CHECK"* ]]; then
+      printResult "error"
+      printDebug "Image '${IMAGE_NAME}' test FAILED could not find ${CHECK} in output" "${OUTPUT}"
+      exit 1
+    else
+        printResult "success"
+  fi
+}
+
+test_usage_maven() {
+  printLine "Testing maven"
+  CHECK="$(cat ../Dockerfile | grep -m1 MAVEN_VERSION | sed -e 's/.*MAVEN_VERSION="\(.*\)"\s.*/\1/g')"
+
+  printLine "Starting Container"
+
+  OUTPUT=$(docker run --rm ${IMAGE_NAME} mvn -version)
+
+  if [[ "$OUTPUT" != *"$CHECK"* ]]; then
+      printResult "error"
+      printDebug "Image '${IMAGE_NAME}' test FAILED could not find ${CHECK} in output" "${OUTPUT}"
+      exit 1
+    else
+        printResult "success"
+  fi
+}
+
+test_usage_java
+
+test_usage_node
