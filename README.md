@@ -1,27 +1,27 @@
-## CentOS 7 with Java Build Pack
+## CentOS 8 with Java Build Pack
 
 [![build_status](https://github.com/aem-design/docker-centos-java-buildpack/workflows/build/badge.svg)](https://github.com/aem-design/docker-centos-java-buildpack/actions?workflow=build)
-[![github license](https://img.shields.io/github/license/aem-design/centos-java-buildpack)](https://github.com/aem-design/centos-java-buildpack) 
-[![github issues](https://img.shields.io/github/issues/aem-design/centos-java-buildpack)](https://github.com/aem-design/centos-java-buildpack) 
-[![github last commit](https://img.shields.io/github/last-commit/aem-design/centos-java-buildpack)](https://github.com/aem-design/centos-java-buildpack) 
-[![github repo size](https://img.shields.io/github/repo-size/aem-design/centos-java-buildpack)](https://github.com/aem-design/centos-java-buildpack) 
-[![docker stars](https://img.shields.io/docker/stars/aemdesign/centos-java-buildpack)](https://hub.docker.com/r/aemdesign/centos-java-buildpack) 
-[![docker pulls](https://img.shields.io/docker/pulls/aemdesign/centos-java-buildpack)](https://hub.docker.com/r/aemdesign/centos-java-buildpack) 
+[![github license](https://img.shields.io/github/license/aem-design/centos-java-buildpack)](https://github.com/aem-design/centos-java-buildpack)
+[![github issues](https://img.shields.io/github/issues/aem-design/centos-java-buildpack)](https://github.com/aem-design/centos-java-buildpack)
+[![github last commit](https://img.shields.io/github/last-commit/aem-design/centos-java-buildpack)](https://github.com/aem-design/centos-java-buildpack)
+[![github repo size](https://img.shields.io/github/repo-size/aem-design/centos-java-buildpack)](https://github.com/aem-design/centos-java-buildpack)
+[![docker stars](https://img.shields.io/docker/stars/aemdesign/centos-java-buildpack)](https://hub.docker.com/r/aemdesign/centos-java-buildpack)
+[![docker pulls](https://img.shields.io/docker/pulls/aemdesign/centos-java-buildpack)](https://hub.docker.com/r/aemdesign/centos-java-buildpack)
 [![github release](https://img.shields.io/github/release/aem-design/centos-java-buildpack)](https://github.com/aem-design/centos-java-buildpack)
 
-This is docker image based on CentOS 7 with Java 8 and Build Tools
+Docker image based on CentOS 8 with Java 8 and build tools.
 
 ### Included Packages
 
 Following is the list of packages included
 
-| Package | Version | Notes  |
-| ---  | ---    | --- |
-| nvm | v0.34.0 | node version manager - for building node sub projects|
-| node | 10.2.1 | node - for managing node version|
-| chrome driver | 77.0.3865.40  | for headless testing |
-| mvn | 3.6.1 | maven - for build process |
-| java | 1.8 | aemdesign/oracle-jdk:jdk8 - Latest Oracle Java version 8 JDK |
+| Package       | Version      | Notes                                                          |
+| ------------- | ------------ | -------------------------------------------------------------- |
+| nvm           | v0.37.2      | node version manager - for building node sub projects          |
+| node          | 12.19.0      | node - for managing node version                               |
+| chrome driver | 88.0.4324.96 | for headless testing                                           |
+| mvn           | 3.6.1        | maven - for build process                                      |
+| java          | 1.8           | aemdesign/oracle-jdk:jdk8 - Oracle Java version 8 JDK |
 
 ### Manual JDK Download Test
 
