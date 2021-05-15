@@ -92,7 +92,7 @@ RUN dnf check-update -y || { rc=$?; [ "$rc" -eq 100 ] && exit 0; exit "$rc"; }
 
 RUN \
     echo "==> Add Docker Client" && \
-    dnf --add-repo https://download.docker.com/linux/centos/docker-ce.repo && \
+    dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo && \
     dnf install -y docker-ce-cli
 
 RUN \
