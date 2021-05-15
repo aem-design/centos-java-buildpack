@@ -1,6 +1,6 @@
-## CentOS 8 with Java Build Pack
+## CentOS 8 with Java 11 Build Pack
 
-[![build_status](https://github.com/aem-design/docker-centos-java-buildpack/workflows/build/badge.svg)](https://github.com/aem-design/docker-centos-java-buildpack/actions?workflow=build)
+[![build](https://github.com/aem-design/docker-centos-java-buildpack/actions/workflows/build.yml/badge.svg?branch=jdk11)](https://github.com/aem-design/docker-centos-java-buildpack/actions/workflows/build.yml)[![github license](https://img.shields.io/github/license/aem-design/centos-java-buildpack)](https://github.com/aem-design/centos-java-buildpack)
 [![github license](https://img.shields.io/github/license/aem-design/centos-java-buildpack)](https://github.com/aem-design/centos-java-buildpack)
 [![github issues](https://img.shields.io/github/issues/aem-design/centos-java-buildpack)](https://github.com/aem-design/centos-java-buildpack)
 [![github last commit](https://img.shields.io/github/last-commit/aem-design/centos-java-buildpack)](https://github.com/aem-design/centos-java-buildpack)
@@ -22,6 +22,7 @@ Following is the list of packages included
 | chrome driver | 88.0.4324.96 | for headless testing                                           |
 | mvn           | 3.6.1        | maven - for build process                                      |
 | java          | 11           | aemdesign/oracle-jdk:jdk11 - Latest Oracle Java version 11 JDK |
+| docker        |              | for running docker commands on docker hosts                    |
 
 ### Manual JDK Download Test
 
