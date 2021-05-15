@@ -72,7 +72,8 @@ ENV REQUIRED_PACKAGES \
     sudo \
     gnupg2 \
     libwebp \
-    yarn
+    yarn \
+    ansible
 
 RUN \
     echo "==> Make dirs..." && \
