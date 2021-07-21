@@ -27,8 +27,6 @@ ENV RVM_USER=${RVM_USER}
 ENV RVM_VERSION=${RVM_VERSION}
 ENV HOME="/build"
 
-ENV DOCKER_COMPOSE_VERSION=1.29.1
-
 RUN mkdir -p $HOME
 
 WORKDIR $HOME
@@ -96,8 +94,10 @@ RUN dnf check-update -y || { rc=$?; [ "$rc" -eq 100 ] && exit 0; exit "$rc"; }
 
 RUN \
     echo "==> Add Docker Client" && \
-    dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo && \
-    dnf install -y docker-ce-cli
+    dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo && \
+    dnf install -y docker-ce-cli && \
+    pip3 install --upgrade pip && \
+    pip install docker-compose
 
 RUN \
     echo "==> Enable Java packages & tools..." && \
@@ -182,14 +182,3 @@ RUN \
     touch $HOME/.bash_profile && echo "if [ -f ~/.bashrc ]; then . ~/.bashrc; fi" >> $HOME/.bash_profile
 
 RUN useradd -m --no-log-init -r -g rvm ${RVM_USER}
-
-RUN \
-    echo "==> Add Docker CLI" && \
-    dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo && \
-    dnf install -y docker-ce-cli && \
-    pip3 install --upgrade pip && \
-    pip install docker-compose
-
-#COPY --from=docker:dind /usr/local/bin/docker /usr/local/bin/
-#COPY --from=docker/compose:${DOCKER_COMPOSE_VERSION} /usr/local/bin/docker-compose /usr/local/bin/
-
