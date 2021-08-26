@@ -89,10 +89,10 @@ RUN \
     dnf config-manager --set-enabled powertools && \
     dnf repolist && \
     dnf groupinfo "Development Tools" && \
-    yum groupinstall 'development tools' && \
+    yum groupinstall -y 'development tools' && \
     curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo
 
-RUN dnf check-update -y || { rc=$?; [ "$rc" -eq 100 ] && exit 0; exit "$rc"; }
+# RUN dnf check-update -y || { rc=$?; [ "$rc" -eq 100 ] && exit 0; exit "$rc"; }
 
 RUN \
     echo "==> Add Docker Client" && \
