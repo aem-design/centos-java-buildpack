@@ -97,7 +97,7 @@ RUN \
     echo "==> Add Docker Client" && \
     dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo && \
     dnf install -y docker-ce-cli && \
-    pip3 install --upgrade pip && \
+    pip install --upgrade pip && \
     pip install docker-compose
 
 RUN \
