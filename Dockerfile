@@ -95,6 +95,13 @@ RUN \
 # RUN dnf check-update -y || { rc=$?; [ "$rc" -eq 100 ] && exit 0; exit "$rc"; }
 
 RUN \
+    echo "==> Update Alternatives" && \
+    alternatives --set python /usr/bin/python3 && \
+    alternatives --set pip /usr/bin/pip3 && \
+    pip --version && \
+    python --version
+
+RUN \
     echo "==> Add Docker Client" && \
     dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo && \
     dnf install -y docker-ce-cli && \
