@@ -38,8 +38,6 @@ ENV REQUIRED_PACKAGES \
     zip \
     unzip \
     ruby \
-    apache-ivy \
-    junit \
     rsync \
     python3-devel \
     python3-setuptools \
@@ -89,28 +87,7 @@ RUN \
     dnf config-manager --set-enabled powertools && \
     dnf repolist && \
     dnf groupinfo "Development Tools" && \
-    yum groupinstall -y 'development tools' && \
     curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo
-
-# RUN dnf check-update -y || { rc=$?; [ "$rc" -eq 100 ] && exit 0; exit "$rc"; }
-
-RUN \
-    echo "==> Update Alternatives" && \
-    alternatives --set python /usr/bin/python3 && \
-    alternatives --set pip /usr/bin/pip3 && \
-    pip --version && \
-    python --version
-
-RUN \
-    echo "==> Add Docker Client" && \
-    dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo && \
-    dnf install -y docker-ce-cli && \
-    pip install --upgrade pip && \
-    pip install docker-compose
-
-RUN \
-    echo "==> Enable Java packages & tools..." && \
-    dnf module enable -y javapackages-tools
 
 RUN \
     echo "==> Install packages..." && \
@@ -118,13 +95,27 @@ RUN \
     dnf group install -y "Development Tools" && \
     dnf --enablerepo=powertools install -y ${REQUIRED_PACKAGES}
 
+RUN echo "==> Check for Updates..." && \
+    dnf check-update -y || { rc=$?; [ "$rc" -eq 100 ] && exit 0; exit "$rc"; }
+
+RUN \
+    echo "==> Install Docker Client..." && \
+    dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo && \
+    dnf install -y docker-ce-cli && \
+    pip3 install --upgrade pip && \
+    pip install docker-compose
+
+RUN \
+    echo "==> Enable Java packages & tools..." && \
+    dnf module enable -y javapackages-tools
+
 RUN \
     echo "==> Install SDKMAN..." && \
-    export SDKMAN_DIR=$HOME
-
-RUN curl -s https://get.sdkman.io | bash
+    export SDKMAN_DIR=$HOME && \
+    curl -s https://get.sdkman.io | bash
 
 RUN \
+    echo "==> Setup SDKMAN..." && \
     source "$HOME/.sdkman/bin/sdkman-init.sh" && \
     sdk version && \
     sdk install groovy $GROOVY_VERSION
