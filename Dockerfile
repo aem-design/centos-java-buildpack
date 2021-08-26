@@ -22,6 +22,7 @@ ARG MAVEN_URL="http://mirrors.sonic.net/apache/maven/maven-3/${MAVEN_VERSION}/bi
 ARG RVM_VERSION=stable
 ARG RVM_USER=rvm
 ARG GROOVY_VERSION="3.0.7"
+ARG LIBWEBP_VERSION="1.2.1"
 
 ENV RVM_USER=${RVM_USER}
 ENV RVM_VERSION=${RVM_VERSION}
@@ -72,9 +73,9 @@ ENV REQUIRED_PACKAGES \
     pngquant \
     sudo \
     gnupg2 \
-    libwebp \
     yarn \
-    ansible
+    ansible \
+    ruby-devel
 
 RUN \
     echo "==> Make dirs..." && \
@@ -178,7 +179,16 @@ RUN \
     rvm install 2.6
 
 RUN \
+    echo "==> Install LIBWEBP..." && \
+    cd /usr/local/share && \
+    wget https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-${LIBWEBP_VERSION}-linux-x86-64.tar.gz && \
+    tar -xvf libwebp-${LIBWEBP_VERSION}-linux-x86-64.tar.gz && \
+    mv /usr/local/share/libwebp-1.2.1-linux-x86-64/bin/* /usr/bin/ && \
+    rm -rf /usr/local/share/libwebp-1.2.1-linux-x86-64
+
+RUN \
     echo "==> Update scripts" && \
+    ln -s /usr/bin/python3 /usr/bin/python && \
     touch $HOME/.bash_profile && echo "if [ -f ~/.bashrc ]; then . ~/.bashrc; fi" >> $HOME/.bash_profile
 
 RUN useradd -m --no-log-init -r -g rvm ${RVM_USER}
