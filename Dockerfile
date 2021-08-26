@@ -89,6 +89,7 @@ RUN \
     dnf config-manager --set-enabled powertools && \
     dnf repolist && \
     dnf groupinfo "Development Tools" && \
+    dnf groupinstall "Development Tools" && \
     curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo
 
 RUN dnf check-update -y || { rc=$?; [ "$rc" -eq 100 ] && exit 0; exit "$rc"; }
