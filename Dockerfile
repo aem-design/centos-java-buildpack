@@ -24,7 +24,7 @@ ARG RVM_USER=rvm
 ARG GROOVY_VERSION="3.0.7"
 ARG LIBWEBP_VERSION="1.2.1"
 
-ENV RVM_USER=${RVM_USER}
+ENV RVM_USER=${RVM_USER}[]
 ENV RVM_VERSION=${RVM_VERSION}
 ENV HOME="/build"
 
@@ -111,11 +111,11 @@ RUN \
 
 RUN \
     echo "==> Install SDKMAN..." && \
-    export SDKMAN_DIR=$HOME && \
-    curl -s https://get.sdkman.io | bash
+    export SDKMAN_DIR=$HOME
+
+RUN curl -s https://get.sdkman.io | bash
 
 RUN \
-    echo "==> Setup SDKMAN..." && \
     source "$HOME/.sdkman/bin/sdkman-init.sh" && \
     sdk version && \
     sdk install groovy $GROOVY_VERSION
