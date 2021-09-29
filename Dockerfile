@@ -73,7 +73,8 @@ ENV REQUIRED_PACKAGES \
     gnupg2 \
     yarn \
     ansible \
-    ruby-devel
+    ruby-devel \
+    jq
 
 RUN \
     echo "==> Make dirs..." && \
