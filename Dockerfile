@@ -31,14 +31,16 @@ RUN mkdir -p $HOME
 
 WORKDIR $HOME
 
+ENV REQUIRED_PACKAGES_YUM \
+    apache-ivy \
+    junit
+
 ENV REQUIRED_PACKAGES \
     curl \
     tar \
     zip \
     unzip \
     ruby \
-    apache-ivy \
-    junit \
     rsync \
     python3-devel \
     python3-setuptools \
@@ -94,12 +96,14 @@ RUN \
 RUN dnf check-update -y || { rc=$?; [ "$rc" -eq 100 ] && exit 0; exit "$rc"; }
 
 RUN \
-    echo "==> Install packages..." && \
-    dnf module list apache-ivy && \
-    dnf module list junit && \
+    echo "==> Install packages DNF..." && \
     dnf group install -y "Development Tools" && \
     dnf --enablerepo=powertools install -y ${REQUIRED_PACKAGES} && \
     ln -s /usr/bin/python3 /usr/bin/python
+
+RUN \
+    echo "==> Install packages YUM..." && \
+    yum install -y ${REQUIRED_PACKAGES_YUM}
 
 RUN \
     echo "==> Install Docker Client" && \
