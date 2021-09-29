@@ -31,10 +31,6 @@ RUN mkdir -p $HOME
 
 WORKDIR $HOME
 
-ENV REQUIRED_PACKAGES_YUM \
-    apache-ivy \
-    junit
-
 ENV REQUIRED_PACKAGES \
     curl \
     tar \
@@ -100,10 +96,6 @@ RUN \
     dnf group install -y "Development Tools" && \
     dnf --enablerepo=powertools install -y ${REQUIRED_PACKAGES} && \
     ln -s /usr/bin/python3 /usr/bin/python
-
-RUN \
-    echo "==> Install packages YUM..." && \
-    yum install -y ${REQUIRED_PACKAGES_YUM}
 
 RUN \
     echo "==> Install Docker Client" && \
