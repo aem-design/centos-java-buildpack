@@ -95,7 +95,8 @@ RUN dnf check-update -y || { rc=$?; [ "$rc" -eq 100 ] && exit 0; exit "$rc"; }
 
 RUN \
     echo "==> Install packages..." && \
-    dnf install -y epel-release && \
+    dnf module list apache-ivy && \
+    dnf module list junit && \
     dnf group install -y "Development Tools" && \
     dnf --enablerepo=powertools install -y ${REQUIRED_PACKAGES} && \
     ln -s /usr/bin/python3 /usr/bin/python
