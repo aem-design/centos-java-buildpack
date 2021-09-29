@@ -74,7 +74,8 @@ ENV REQUIRED_PACKAGES \
     gnupg2 \
     libwebp \
     yarn \
-    ansible
+    ansible \
+    jq
 
 RUN \
     echo "==> Make dirs..." && \
