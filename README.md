@@ -40,3 +40,19 @@ export JAVA_DOWNLOAD_URL="http://www.oracle.com/technetwork/java/javase/download
     echo AUTO_JDKMD5=$AUTO_JDKMD5 && \
     echo AUTO_JDKFILE=$AUTO_JDKFILE
 ```
+
+### Run dev container in a path
+
+Use these commands to run container in cyour current path.
+
+#### JDK 8
+
+```bash
+docker run --rm -it --name dev-jdk8 -v `pwd`:/build/source -v ${HOME}/.m2:/build/.m2 -v /var/run/docker.sock:/var/run/docker.sock -p 3001:3001 -e M2_HOME=/build/.m2 -w /build/source -e AEM_HOST=host.docker.internal --net=host aemdesign/centos-java-buildpack:jdk8 /bin/bash --login
+```
+
+#### JDK 11
+
+```bash
+docker run --rm -it --name dev-jdk11 -v `pwd`:/build/source -v ${HOME}/.m2:/build/.m2 -v /var/run/docker.sock:/var/run/docker.sock -e M2_HOME=/build/.m2 -w /build/source -e AEM_HOST=host.docker.internal --net=host aemdesign/centos-java-buildpack:jdk11 /bin/bash --login
+```
